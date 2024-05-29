@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "fac38ea6-e690-4956-87e5-2900f9f4b53d",
+		"name": "variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35070795"
+	},
+	"item": [
+		{
+			"name": "payload -ve testing Copy",
+			"item": [
+				{
+					"name": "post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"gName\", \"derma\");\r",
+									"pm.globals.set(\"gMail\",\"deram@co.in\");\r",
+									"pm.globals.set(\"gStatus\", \"active\");\r",
+									"pm.globals.set(\"gGender\", \"female\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"gName\", \"derma\");\r",
+									"pm.globals.set(\"gMail\",\"deram@co.in\");\r",
+									"pm.globals.set(\"gStatus\", \"active\");\r",
+									"pm.globals.set(\"gGender\", \"female\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{gToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"{{gName}}\",\r\n\"email\": \"{{gMail}}\",\r\n\"gender\": \"{{gGender}}\",\r\n\"status\": \"{{gStatus}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ENV_METHOD}}://{{ENV_URL}}/{{gEndpoint}}",
+							"protocol": "{{ENV_METHOD}}",
+							"host": [
+								"{{ENV_URL}}"
+							],
+							"path": [
+								"{{gEndpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pathch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify if response code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if response time < 5 seconds\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if response body is received from server\", function () {\r",
+									"    pm.response.to.have.body();\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if response body is received in JSON format\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if response body contains fields such as id, name, email, gender, status\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\")\r",
+									"    pm.expect(pm.response.text()).to.include(\"gender\")\r",
+									"    pm.expect(pm.response.text()).to.include(\"status\")\r",
+									"});\r",
+									"pm.test(\"Verify if gender is either male or female\", function () {\r",
+									"    pm.expect(pm.response.json().gender).to.be.oneOf([\"male\", \"female\"]);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if status is active or inactive\", function () {\r",
+									"    pm.expect(pm.response.json().status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify if name=Comcast-IT Company\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"Tanirika Kaul\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if email=info3@comcast.com\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).to.eql(\"tanirika_kaul@gleason.example\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify if id=6921366\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(6920247);\r",
+									"});\r",
+									"\r",
+									"console.log(\"The data type for id field is \"+typeof(pm.response.json().id));\r",
+									"console.log(\"The data type for name field is \"+typeof(pm.response.json().name));\r",
+									"console.log(\"The data type for status field is \"+typeof(pm.response.json().status));\r",
+									"console.log(\"The data type for gender field is \"+typeof(pm.response.json().gender));\r",
+									"console.log(\"The data type for email field is \"+typeof(pm.response.json().email));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{gToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"email\":\"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ENV_METHOD}}://{{ENV_URL}}/{{gEndpoint}}/6930895",
+							"protocol": "{{ENV_METHOD}}",
+							"host": [
+								"{{ENV_URL}}"
+							],
+							"path": [
+								"{{gEndpoint}}",
+								"6930895"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "https://gorest.co.in/public/v2/users/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{gToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{ENV_METHOD}}://{{ENV_URL}}/{{gEndpoint}}",
+					"protocol": "{{ENV_METHOD}}",
+					"host": [
+						"{{ENV_URL}}"
+					],
+					"path": [
+						"{{gEndpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{gToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{ENV_METHOD}}://{{ENV_URL}}/{{gEndpoint}}/6930895",
+					"protocol": "{{ENV_METHOD}}",
+					"host": [
+						"{{ENV_URL}}"
+					],
+					"path": [
+						"{{gEndpoint}}",
+						"6930895"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
